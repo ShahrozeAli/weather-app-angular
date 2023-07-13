@@ -1,15 +1,16 @@
 <nz-tabset>
-    <nz-tab nzTitle="3 Days">
+    <nz-tab nzTitle="3 Days" (nzClick)="getThreeDaysWeatherDetail(latitude, longitude)">
         <ng-template nz-tab>
-            <h3>3 Days</h3>
             <app-wind-speed-chart [stationList]="data"></app-wind-speed-chart>
             <app-temp-chart [stationList]="data"></app-temp-chart>
             <app-wind-direction-chart [stationList]="data"></app-wind-direction-chart>
         </ng-template>
     </nz-tab>
-    <nz-tab nzTitle="14 Days">
+    <nz-tab nzTitle="14 Days" (nzClick)="getFourteenDaysWeatherDetail(latitude, longitude)">
         <ng-template nz-tab>
-            <h3>14 Days</h3>
+            <app-wind-speed-chart [stationList]="data"></app-wind-speed-chart>
+            <app-temp-chart [stationList]="data"></app-temp-chart>
+            <app-wind-direction-chart [stationList]="data"></app-wind-direction-chart>
         </ng-template>
     </nz-tab>
 </nz-tabset>

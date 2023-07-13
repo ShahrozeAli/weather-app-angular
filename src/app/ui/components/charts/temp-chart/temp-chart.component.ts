@@ -1,20 +1,14 @@
-import { Component, OnInit, Input } from "@angular/core";
+import {Component, Input, OnChanges} from "@angular/core";
 import * as Highcharts from "highcharts";
-import { WeatherService } from "../../../../data/services/weather.service";
 
 @Component({
   selector: "app-temp-chart",
   templateUrl: "./temp-chart.component.html",
   styleUrls: ["./temp-chart.component.scss"],
 })
-export class TempChartComponent implements OnInit {
-  @Input("stationList") station: any = {};
-  data: any = {};
-
-  dataPointsMinTemp: any[] = [];
-  dataPointsMaxTemp: any[] = [];
+export class TempChartComponent implements OnChanges {
+  @Input("stationList") stationDetail: any = {};
   Highcharts: typeof Highcharts = Highcharts;
-  updateFlag = false;
 
   chartOptions: Highcharts.Options = {
     title: {
@@ -24,27 +18,31 @@ export class TempChartComponent implements OnInit {
     series: [
       {
         type: "line",
-        data: this.dataPointsMinTemp,
+        data: [],
         name: "Min Temp",
       },
       {
         type: "line",
-        data: this.dataPointsMaxTemp,
+        data: [],
         name: "Max Temp",
       },
     ],
   };
 
-  constructor(private membrService: WeatherService) {}
+  constructor() {}
 
-  createDataArray(data: any[]) {
-    this.dataPointsMinTemp = data.map((el) => {
+  ngOnChanges() {
+    this.generateGraphData(this.stationDetail.data);
+  }
+
+  generateGraphData(data: any[]) {
+    let dataPointsMinTemp: any[] = data.map((el) => {
       return {
         x: new Date(el.dateTime),
         y: el.tempMin,
       };
     });
-    this.dataPointsMaxTemp = data.map((el) => {
+    let dataPointsMaxTemp: any[] = data.map((el) => {
       return {
         x: new Date(el.dateTime),
         y: el.tempMax,
@@ -59,20 +57,15 @@ export class TempChartComponent implements OnInit {
       series: [
         {
           type: "line",
-          data: this.dataPointsMinTemp,
+          data: dataPointsMinTemp,
           name: "Min Temp",
         },
         {
           type: "line",
-          data: this.dataPointsMaxTemp,
+          data: dataPointsMaxTemp,
           name: "Max Temp",
         },
       ],
     };
-  }
-
-  ngOnInit(): void {
-    this.data = this.station;
-    this.createDataArray(this.data.data);
   }
 }

@@ -1,20 +1,14 @@
-import { Component, OnInit, Input } from "@angular/core";
+import {Component, Input, OnChanges} from "@angular/core";
 import * as Highcharts from "highcharts";
-import { WeatherService } from "../../../../data/services/weather.service";
 
 @Component({
   selector: "app-wind-speed-chart",
   templateUrl: "./wind-speed-chart.component.html",
   styleUrls: ["./wind-speed-chart.component.scss"],
 })
-export class WindSpeedChartComponent implements OnInit {
-  @Input("stationList") station: any = {};
-  data: any = {};
-
-  dataPointsWind: any[] = [];
-  dataPointsGust: any[] = [];
+export class WindSpeedChartComponent implements OnChanges {
+  @Input("stationList") stationDetail: any = {};
   Highcharts: typeof Highcharts = Highcharts;
-  updateFlag = false;
 
   chartOptions: Highcharts.Options = {
     title: {
@@ -24,22 +18,26 @@ export class WindSpeedChartComponent implements OnInit {
     series: [
       {
         type: "line",
-        data: this.dataPointsWind,
+        data: [],
         name: "Avg Speed",
       },
     ],
   };
 
-  constructor(private membrService: WeatherService) {}
+  constructor() {}
 
-  createDataArray(data: any[]) {
-    this.dataPointsWind = data.map((el) => {
+  ngOnChanges() {
+    this.generateGraphData(this.stationDetail.data);
+  }
+
+  generateGraphData(data: any[]) {
+    let dataPointsWind: any[] = data.map((el) => {
       return {
         x: new Date(el.dateTime),
         y: el.windSpeed,
       };
     });
-    this.dataPointsGust = data.map((el) => {
+    let dataPointsGust: any[] = data.map((el) => {
       return {
         x: new Date(el.dateTime),
         y: el.windGust,
@@ -54,20 +52,15 @@ export class WindSpeedChartComponent implements OnInit {
       series: [
         {
           type: "line",
-          data: this.dataPointsWind,
+          data: dataPointsWind,
           name: "Avg Speed",
         },
         {
           type: "line",
-          data: this.dataPointsGust,
+          data: dataPointsGust,
           name: "Gust Speed",
         },
       ],
     };
-  }
-
-  ngOnInit(): void {
-    this.data = this.station;
-    this.createDataArray(this.data.data);
   }
 }
