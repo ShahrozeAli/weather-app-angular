@@ -1,0 +1,27 @@
+<nz-table #basicTable>
+  <thead>
+    <tr class="table-header">
+      <th>Station</th>
+      <th>
+        Meteologix Total Rainfall<br />Prob - Cloud<br />24-hours<br />(mm)
+      </th>
+      <th>Meteologix<br />Min - Max Temp<br />24-hours<br />(°C)</th>
+      <th>Meteologix Wind Spd<br />Gust<br />24-hours<br />(km/h)</th>
+      <th>Last Updated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let station of stationsList">
+      <td>{{ station.station }}</td>
+      <td>{{ station.data.cloudCoverage }}</td>
+      <td>{{ station.data.tempMin }} - {{ station.data.tempMax }}</td>
+      <td>
+        {{ station.data.windSpeed }}<br />{{ station.data.windDirection }}
+      </td>
+      <td>{{ station.lastUpdated }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+<div *ngFor="let station of stationsList">
+  <app-wind-speed-chart [stationList]="station"></app-wind-speed-chart>
+</div>
