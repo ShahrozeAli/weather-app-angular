@@ -7,13 +7,13 @@ import { WeatherRepository } from "../repository/weather.repository";
 export class WeatherService {
   constructor(private weatherRepository: WeatherRepository) {}
 
-  getDailyWeatherApi(lat: any, lng: any) {
+  getDailyWeatherApi(lat: string, lng: string) {
     return this.weatherRepository.getDailyWeather(lat, lng);
   }
-  getThreeDaysApi(lat: any, lng: any) {
+  getThreeDaysApi(lat: string, lng: string) {
     return this.weatherRepository.getThreeDays(lat, lng);
   }
-  getFourteenDaysApi(lat: any, lng: any) {
+  getFourteenDaysApi(lat: string, lng: string) {
     return this.weatherRepository.getFourteenDays(lat, lng);
   }
 }

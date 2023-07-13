@@ -1,36 +1,31 @@
 import { Component, OnInit, Input } from "@angular/core";
 import * as Highcharts from "highcharts";
-import { WeatherService } from "../services/weather.service";
+import { WeatherService } from "../../../../data/services/weather.service";
 
 @Component({
-  selector: "app-temp-chart",
-  templateUrl: "./temp-chart.component.html",
-  styleUrls: ["./temp-chart.component.scss"],
+  selector: "app-wind-speed-chart",
+  templateUrl: "./wind-speed-chart.component.html",
+  styleUrls: ["./wind-speed-chart.component.scss"],
 })
-export class TempChartComponent implements OnInit {
+export class WindSpeedChartComponent implements OnInit {
   @Input("stationList") station: any = {};
   data: any = {};
 
-  dataPointsMinTemp: any[] = [];
-  dataPointsMaxTemp: any[] = [];
+  dataPointsWind: any[] = [];
+  dataPointsGust: any[] = [];
   Highcharts: typeof Highcharts = Highcharts;
   updateFlag = false;
 
   chartOptions: Highcharts.Options = {
     title: {
-      text: "Temperature",
+      text: "Wind Speed",
       align: "center",
     },
     series: [
       {
         type: "line",
-        data: this.dataPointsMinTemp,
-        name: "Min Temp",
-      },
-      {
-        type: "line",
-        data: this.dataPointsMaxTemp,
-        name: "Max Temp",
+        data: this.dataPointsWind,
+        name: "Avg Speed",
       },
     ],
   };
@@ -38,34 +33,34 @@ export class TempChartComponent implements OnInit {
   constructor(private membrService: WeatherService) {}
 
   createDataArray(data: any[]) {
-    this.dataPointsMinTemp = data.map((el) => {
+    this.dataPointsWind = data.map((el) => {
       return {
         x: new Date(el.dateTime),
-        y: el.tempMin,
+        y: el.windSpeed,
       };
     });
-    this.dataPointsMaxTemp = data.map((el) => {
+    this.dataPointsGust = data.map((el) => {
       return {
         x: new Date(el.dateTime),
-        y: el.tempMax,
+        y: el.windGust,
       };
     });
 
     this.chartOptions = {
       title: {
-        text: "Temperature",
+        text: "Wind Speed",
         align: "center",
       },
       series: [
         {
           type: "line",
-          data: this.dataPointsMinTemp,
-          name: "Min Temp",
+          data: this.dataPointsWind,
+          name: "Avg Speed",
         },
         {
           type: "line",
-          data: this.dataPointsMaxTemp,
-          name: "Max Temp",
+          data: this.dataPointsGust,
+          name: "Gust Speed",
         },
       ],
     };

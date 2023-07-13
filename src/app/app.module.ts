@@ -4,18 +4,19 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
-import { WeatherInterceptor } from "./interceptors/weather.interceptor";
+import { WeatherInterceptor } from "./data/interceptors/weather.interceptor";
 import { HighchartsChartModule } from "highcharts-angular";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
-import { DetailComponent } from "./detail/detail.component";
-import { WindSpeedChartComponent } from './wind-speed-chart/wind-speed-chart.component';
-import { TempChartComponent } from './temp-chart/temp-chart.component';
-import { HomeComponent } from './home/home.component';
-import { WindDirectionChartComponent } from './wind-direction-chart/wind-direction-chart.component';
+import { DetailComponent } from "./ui/components/detail/detail.component";
+import { WindSpeedChartComponent } from './ui/components/charts/wind-speed-chart/wind-speed-chart.component';
+import { TempChartComponent } from './ui/components/charts/temp-chart/temp-chart.component';
+import { HomeComponent } from './ui/components/home/home.component';
+import { WindDirectionChartComponent } from './ui/components/charts/wind-direction-chart/wind-direction-chart.component';
+import { StationDetailComponent } from './ui/components/station-detail/station-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, DetailComponent, WindSpeedChartComponent, TempChartComponent, HomeComponent, WindDirectionChartComponent],
+  declarations: [AppComponent, DetailComponent, WindSpeedChartComponent, TempChartComponent, HomeComponent, WindDirectionChartComponent, StationDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

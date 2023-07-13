@@ -7,7 +7,6 @@ import {
 } from "@angular/common/http";
 
 import { Observable } from "rxjs/internal/Observable";
-import {API} from "../config/config";
 
 
 @Injectable()
@@ -20,7 +19,6 @@ export class WeatherInterceptor implements HttpInterceptor {
 
       request = request.clone({
         setHeaders: {
-          // 'x-api-key': API.token,
           'Access-Control-Allow-Origin': '*',
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -29,7 +27,6 @@ export class WeatherInterceptor implements HttpInterceptor {
           'Strict-Transport-Security':'max-age=86400',
           'Connection':'keep-alive',
           'Content-Length':'1045'
-
         },
       });
     return next.handle(request);

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { WeatherService } from "./../services/weather.service";
+import { WeatherService } from "../../../data/services/weather.service";
 import { Router, NavigationExtras } from "@angular/router";
 
 @Component({
@@ -8,11 +8,6 @@ import { Router, NavigationExtras } from "@angular/router";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent {
-  title = "weather";
-
-  weatherForecastDailyList: any = [];
-  lastupdated: any = "";
-
   stationsList: any = [
     {
       station: "Perth",
@@ -30,7 +25,7 @@ export class HomeComponent {
     },
   ];
 
-  constructor(private membrService: WeatherService, private router: Router) {
+  constructor(private weatherService: WeatherService, private router: Router) {
     for (let index = 0; index < this.stationsList.length; index++) {
       this.getDailyWeatherAPI(index);
     }
@@ -39,7 +34,7 @@ export class HomeComponent {
   }
 
   getDailyWeatherAPI(index: any) {
-    this.membrService
+    this.weatherService
       .getDailyWeatherApi(
         this.stationsList[index].lat,
         this.stationsList[index].lng
@@ -56,14 +51,11 @@ export class HomeComponent {
       );
   }
 
-  navigateToRouteWithParams(param1: string, param2: string) {
+  navigateToRouteWithParams(lat: string, lon: string) {
     const queryParams: NavigationExtras = {
-      queryParams: {
-        lat: param1,
-        lon: param2,
-      },
+      queryParams: {lat, lon},
     };
 
-    this.router.navigate(["/details"], queryParams);
+    this.router.navigate(["/details"], queryParams).then();
   }
 }

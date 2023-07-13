@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import * as Highcharts from "highcharts";
-import { WeatherService } from "../services/weather.service";
+import { WeatherService } from "../../../../data/services/weather.service";
 
 @Component({
   selector: "app-wind-direction-chart",
