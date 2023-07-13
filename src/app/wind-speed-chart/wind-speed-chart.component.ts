@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import * as Highcharts from "highcharts";
+import {WeatherService} from "../services/weather.service";
 
 interface StationData {
   threeDays?: {
@@ -22,7 +23,8 @@ interface StationData {
   styleUrls: ["./wind-speed-chart.component.scss"],
 })
 export class WindSpeedChartComponent implements OnInit, OnChanges {
-  @Input() stationList: StationData = {};
+  @Input('stationList') station: StationData = {};
+  data: any = {};
 
   dataPointsWind: any[] = [];
   dataPointsGust: any[] = [];
@@ -43,10 +45,28 @@ export class WindSpeedChartComponent implements OnInit, OnChanges {
     ],
   };
 
-  createDataArray() {
-    console.log("this.stationList => ", this.stationList.threeDays);
-    if (this.stationList?.threeDays?.data) {
-      this.dataPointsWind = this.stationList.threeDays.data.map((el) => {
+  constructor(private membrService: WeatherService) {
+    this.getData();
+  }
+
+  getData() {
+    this.membrService
+        .getThreeDaysApi("20.2581","73.5057")
+        .subscribe(
+            (data: any) => {
+              console.log('data', data);
+              this.createDataArray(data.data);
+            },
+            (error) => {
+              console.log(JSON.stringify(error));
+              return [];
+            }
+        );
+  }
+
+  createDataArray(data: any[]) {
+    // if (this.station?.threeDays?.data) {
+      this.dataPointsWind = data.map((el) => {
         return {
           x: new Date(el.dateTime),
           y: el.windSpeed,
@@ -66,18 +86,13 @@ export class WindSpeedChartComponent implements OnInit, OnChanges {
           },
         ],
       };
-
-      console.log("dataPointsWind => ", this.dataPointsWind);
-    }
+    // }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["stationList"]) {
-      this.createDataArray();
-    }
   }
 
   ngOnInit(): void {
-    this.createDataArray();
+    // this.createDataArray();
   }
 }

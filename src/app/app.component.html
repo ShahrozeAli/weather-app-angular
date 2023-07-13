@@ -22,6 +22,8 @@
     </tr>
   </tbody>
 </nz-table>
-<div *ngFor="let station of stationsList">
-  <app-wind-speed-chart [stationList]="station"></app-wind-speed-chart>
-</div>
+<!--<div *ngFor="let station of stationsList">-->
+<!--  <app-wind-speed-chart [stationList]="station"></app-wind-speed-chart>-->
+<!--</div>-->
+
+  <app-wind-speed-chart [stationList]="stationsList[0]"></app-wind-speed-chart>
