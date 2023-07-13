@@ -8,7 +8,6 @@ import { WeatherInterceptor } from "./data/interceptors/weather.interceptor";
 import { HighchartsChartModule } from "highcharts-angular";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
-import { DetailComponent } from "./ui/components/detail/detail.component";
 import { WindSpeedChartComponent } from './ui/components/charts/wind-speed-chart/wind-speed-chart.component';
 import { TempChartComponent } from './ui/components/charts/temp-chart/temp-chart.component';
 import { HomeComponent } from './ui/components/home/home.component';
@@ -16,7 +15,7 @@ import { WindDirectionChartComponent } from './ui/components/charts/wind-directi
 import { StationDetailComponent } from './ui/components/station-detail/station-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, DetailComponent, WindSpeedChartComponent, TempChartComponent, HomeComponent, WindDirectionChartComponent, StationDetailComponent],
+  declarations: [AppComponent, WindSpeedChartComponent, TempChartComponent, HomeComponent, WindDirectionChartComponent, StationDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
